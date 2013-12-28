@@ -21,7 +21,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_SONY_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_SONY_HARDWARE 
 
 # Kernel information
 TARGET_KERNEL_SOURCE := kernel/sony/msm7x27a
@@ -45,11 +45,11 @@ TARGET_PROVIDES_LIBLIGHTS := true
 
 # Workaround for missing symbols in camera
 COMMON_GLOBAL_CFLAGS += -DQCOM_NO_SECURE_PLAYBACK
-BOARD_NEEDS_MEMORYHEAPPMEM := true
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_PMEM := true
 
 # GPS
 BOARD_USES_QCOM_LIBRPC := true
@@ -59,19 +59,23 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
+#TARGET_NEEDS_BLUETOOTH_INIT_DELAY := true
 
 # Webkit
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
 # Custom boot
+TARGET_RECOVERY_PRE_COMMAND := "touch /cache/recovery/boot;sync;"
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/tamsui-common/custombootimg.mk
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/sony/tamsui-common/releasetools/semc_ota_from_target_files
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/sony/tamsui-common/recovery/recovery-keys.c
 
+## Usb
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 
-# Bootanimation
+#Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
